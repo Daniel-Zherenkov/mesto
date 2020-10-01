@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="pages/index.css">
+    <title>Место - социальная сеть без Дороничева и Давыдова</title>
+</head>
+
+
+<body>
+    <div class="page">
+        <header class="header">
+            <img class="header__logo" src="./images/logo.svg" alt="логотип">
+            <div class="header__line"></div>
+        </header>
+
+        <main>
+            <section class="profile">
+                <div class="profile__left">
+                    <img class="profile__avatar" src="./images/avatar (1).jpg" alt="аватар">
+                    <div class="profile__info">
+                        <h1 class="profile__name">Жак-Ив Кусто</h1>
+                        <h2 class="profile__about-self">Исследователь океана</h2>
+                    </div>
+                    <button class="profile__edit-button">
+                        <img src="./images/editButton.svg" alt="редактировать">
+                    </button>
+                </div>
+                <button class="profile__add-button">
+                    <img src="./images/addButton.svg" alt="добавить"> 
+                </button>
+            </section>
+
+            <section class="elements">
+                <figure class="element">
+                    <img src="./images/karachaevsk (1).jpg" alt="карачаевск" class="element__image">
+                    <div class="element__footer">
+                        <p class="element__title">Карачаевск</p>
+                        <img src="./images/like.svg" alt="лайк" class="element__like">
+                    </div>
+                    
+                </figure>
+                <figure class="element">
+                    <img src="./images/elbrus (1).jpg" alt="Эльбрус" class="element__image">
+                    <div class="element__footer">
+                        <p class="element__title">Гора Эльбрус</p>
+                        <img src="./images/like.svg" alt="лайк" class="element__like">
+                    </div>
+                </figure>
+                <figure class="element">
+                    <img src="./images/dombai (1).jpg" alt="домбай" class="element__image">
+                    <div class="element__footer">
+                        <p class="element__title">Домбай</p>
+                        <img src="./images/like.svg" alt="лайк" class="element__like">
+                    </div>
+                </figure>
+                <figure class="element">
+                    <img src="./images/elbrus (1).jpg" alt="эльбрус" class="element__image">
+                    <div class="element__footer">
+                        <p class="element__title">Гора Эльбрус</p>
+                        <img src="./images/like.svg" alt="лайк" class="element__like">
+                    </div>
+                </figure>
+                <figure class="element">
+                    <img src="./images/dombai (1).jpg" alt="домбай" class="element__image">
+                    <div class="element__footer">
+                        <p class="element__title">Домбай</p>
+                        <img src="./images/like.svg" alt="лайк" class="element__like">
+                    </div>
+                </figure>
+                <figure class="element">
+                    <img src="./images/karachaevsk (1).jpg" alt="карачавеск" class="element__image">
+                    <div class="element__footer">
+                        <p class="element__title">Карачаево-черкесия</p>
+                        <img src="./images/like.svg" alt="лайк" class="element__like">
+                    </div>
+                </figure>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p class="footer__title">&copy 2020 Mesto Russia</p>
+
+        </footer>
+
+    </div>
+
+    <div class="popup">
+        <form class="popup__container">
+            <img src="./images/addButton.svg" alt="" class="popup__close-button">
+            <p class="popup__title">Редактировать профиль</p>
+            <input placeholder="Имя" type="text" class="popup__name-filed">
+            <input placeholder="О вас" type="text" class="popup__about-filed">
+            <button type="submit" class="popup__save-button">
+                <p class="popup__save-button-text">Сохранить</p>
+            </button>
+        </form>
+    </div>
+
+    
+    <script src="./scripts/index.js"></script>    
+</body>
+
+
+</html>
