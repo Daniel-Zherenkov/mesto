@@ -7,6 +7,13 @@
     border-radius: 2px;
     margin: 0;
     cursor: pointer;
+    font-family: 'Inter', Arial, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+    color: #FFFFFF;
 }
 
 .popup__save-button:hover {
