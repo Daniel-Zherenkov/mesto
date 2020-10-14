@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="pages/index.css">
     <title>Место - социальная сеть без Дороничева и Давыдова</title> 
-    <!-- Да, это они =D Они создали свое комьюнити для стартаперов после фильма Дудя, которое назвали "Место", грех было их не вспомнить :) -->
 </head>
 
 
@@ -37,62 +36,7 @@
             </section>
 
             <section class="elements">
-                <div class="element">
-                    <img src="./images/karachaevsk.jpg" alt="карачаевск" class="element__image">
-                    <div class="element__footer">
-                        <h2 class="element__title">Карачаевск</h2>
-                        <button type="button" class="element__like">
-                            <img src="./images/like.svg" alt="лайк">
-                        </button>
-                        
-                    </div>
-                    
-                </div>
-                <div class="element">
-                    <img src="./images/elbrus.jpg" alt="Эльбрус" class="element__image">
-                    <div class="element__footer">
-                        <h2 class="element__title">Гора Эльбрус</h2>
-                        <button type="button" class="element__like">
-                            <img src="./images/like.svg" alt="лайк">
-                        </button>
-                    </div>
-                </div>
-                <div class="element">
-                    <img src="./images/dombai.jpg" alt="домбай" class="element__image">
-                    <div class="element__footer">
-                        <h2 class="element__title">Домбай</h2>
-                        <button type="button" class="element__like">
-                            <img src="./images/like.svg" alt="лайк">
-                        </button>
-                    </div>
-                </div>
-                <div class="element">
-                    <img src="./images/elbrus.jpg" alt="эльбрус" class="element__image">
-                    <div class="element__footer">
-                        <h2 class="element__title">Гора Эльбрус</h2>
-                        <button type="button" class="element__like">
-                            <img src="./images/like.svg" alt="лайк">
-                        </button>
-                    </div>
-                </div>
-                <div class="element">
-                    <img src="./images/dombai.jpg" alt="домбай" class="element__image">
-                    <div class="element__footer">
-                        <h2 class="element__title">Домбай</h2>
-                        <button type="button" class="element__like">
-                            <img src="./images/like.svg" alt="лайк">
-                        </button>
-                    </div>
-                </div>
-                <div class="element">
-                    <img src="./images/karachaevsk.jpg" alt="карачавеск" class="element__image">
-                    <div class="element__footer">
-                        <h2 class="element__title">Карачаево-Черкесия</h2>
-                        <button type="button" class="element__like">
-                            <img src="./images/like.svg" alt="лайк">
-                        </button>
-                    </div>
-                </div>
+
             </section>
         </main>
 
@@ -115,6 +59,46 @@
             
         </form>
     </div>
+
+    <div class="addPopup">
+        <form name="addPopupContainer" class="addPopup__container">
+            <button type="button" class="addPopup__close-button">
+                <img src="./images/addButton.svg" alt="закрыть" class="addPopup__close-button-img">
+            </button>
+            <h3 class="addPopup__title">Новое место</h3>
+            <input name="placeName" placeholder="Название" type="text" class="addPopup__input-filed addPopup__input-filed_place">
+            <input name="link" placeholder="Ссылка" type="text" class="addPopup__input-filed addPopup__input-filed_link">
+            <button type="submit" class="addPopup__save-button">Создать</button>
+            
+        </form>
+    </div>
+
+    <div class="imgPopup">
+            <div class="imgPopup__container">
+                <button type="button" class="imgPopup__close-button"></button>
+                <img src="" alt="картинка" class="imgPopup__image">
+                <p class="imgPopup__title"></p>
+            </div>
+    </div>
+
+    <template id="elementCards">
+        <div class="element">
+            <img class="element__image">
+            <button type="button" class="element__trash"></button>
+            <div class="element__footer">
+                <h2 class="element__title"></h2>
+                <button type="button" class="element__like">
+                    <img src="./images/like.svg" alt="лайк" class="element__like_icon">
+                </button>
+            </div>
+            
+        </div>
+    </template> 
+
+
+
+
+
 
     
     <script src="./scripts/index.js"></script>    
