@@ -78,9 +78,9 @@ formElement.addEventListener('submit', formSubmitHandler);
 
 
 function addElement(item) {
-    let elementCard = elementTemplate.cloneNode(true);
-    let elementTitle = elementCard.querySelector('.element__title');
-    let elementImage = elementCard.querySelector('.element__image');
+    const elementCard = elementTemplate.cloneNode(true);
+    const elementTitle = elementCard.querySelector('.element__title');
+    const elementImage = elementCard.querySelector('.element__image');
 
     elementTitle.textContent = item.name;
     elementImage.src = item.link;
@@ -102,10 +102,6 @@ function addElement(item) {
         imgPopupTitle.textContent = elementTitle.textContent  
     });
     
-    document.querySelector('.imgPopup__close-button').addEventListener('click', function () {
-        closePopup(imgPopup);
-    })
-
     return elementCard;
 }
 
@@ -126,6 +122,10 @@ function newPlaceFormHandler(evt) {
 }
 
 
+
+document.querySelector('.imgPopup__close-button').addEventListener('click', function () {
+    closePopup(imgPopup);
+})
 
 addButton.addEventListener('click', function() {
     openPopup(addPopup);
