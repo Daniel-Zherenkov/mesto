@@ -49,11 +49,26 @@ const imgPopupTitle = document.querySelector('.imgPopup__title');
 
 function openPopup(popup) {
     popup.classList.add('popup-opened');
+    popup.addEventListener('click', function(evt) {
+        if (evt.target === popup){
+        closePopup(popup);
+        }
+        
+    });
+    document.addEventListener('keydown', function(evt) {
+        if (evt.key === "Escape"){
+            closePopup(popup)
+            }
+    });
+
 };
+
 
 function closePopup(popup) {
     popup.classList.remove('popup-opened');
+    
 };
+
 
 function formSubmitHandler (evt) {
     evt.preventDefault(); 
@@ -106,7 +121,7 @@ function addElement(item) {
 }
 
 initialCards.forEach( item => {
-    elements.prepend(addElement(item));
+    elements.append(addElement(item));
     
 });
 
@@ -120,6 +135,13 @@ function newPlaceFormHandler(evt) {
     elements.prepend(addElement(item));
     closePopup(addPopup);
 }
+
+
+// document.addEventListener('keydown', function(evt) {
+//     if (evt.key === "Escape"){
+//         closePopup(imgPopup)
+//         }
+// });
 
 
 
