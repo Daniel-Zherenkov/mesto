@@ -1,4 +1,4 @@
-/* .profilePopup__close-button{
+.popup-close-button{
     transform: rotate(45deg);
     position: absolute;
     border: none;
@@ -9,12 +9,12 @@
     cursor: pointer;
 }
 
-.profilePopup__close-button:hover {
+.popup-close-button:hover {
     opacity: .6;
 }
 
 @media screen and (min-width: 320px) and (max-width: 768px) {
-    .profilePopup__close-button{
+    .popup-close-button{
         height: 26px;
         width: 26px;
         right: 15px;
@@ -22,4 +22,4 @@
         
     }
 
-} */
+}

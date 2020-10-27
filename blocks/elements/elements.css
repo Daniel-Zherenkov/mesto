@@ -10,10 +10,10 @@
     margin: 46px auto 0;
 }
 
-/* @media screen and (max-width: 959px) {
+@media screen and (max-width: 1004px) {
     .elements {
-        grid-template-columns: repeat(2, 282px);
-        grid-template-rows: repeat(3, auto);
+        /* grid-template-columns: repeat(2, 282px);
+        grid-template-rows: repeat(3, auto); */
         justify-content: center;
     }
 
@@ -22,9 +22,9 @@
 @media screen and (min-width: 320px) and (max-width: 768px) {
     .elements {
         justify-content: center;
-        grid-template-columns: 282px;
-        grid-template-rows: 1fr;
+        /* grid-template-columns: 282px;
+        grid-template-rows: 1fr; */
         margin-top: 36px;
     }
 
-} */
+}
