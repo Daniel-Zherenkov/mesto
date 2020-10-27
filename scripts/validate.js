@@ -71,20 +71,20 @@ function enableValidation(object) {
 
 
 enableValidation({
-    formSelector: '.profilePopup__container',
-    inputSelector: '.profilePopup__input-filed',
+    formSelector: '.profile-popup__container',
+    inputSelector: '.profile-popup__input-filed',
     errorSelector: '.popup-error__text-input-error',
-    submitButtonSelector: '.profilePopup__save-button',
+    submitButtonSelector: '.profile-popup__save-button',
     inactiveButtonClass: 'popup-error__disabled-button',
     inputErrorClass: 'popup-error__input-error',
     errorClass: 'popup-error__text-input-error'
 }); 
 
 enableValidation({
-    formSelector: '.addPopup__container',
-    inputSelector: '.addPopup__input-filed',
+    formSelector: '.add-popup__container',
+    inputSelector: '.add-popup__input-filed',
     errorSelector: '.popup-error__text-input-error',
-    submitButtonSelector: '.addPopup__save-button',
+    submitButtonSelector: '.add-popup__save-button',
     inactiveButtonClass: 'popup-error__disabled-button',
     inputErrorClass: 'popup-error__input-error',
     errorClass: 'popup-error__text-input-error'
