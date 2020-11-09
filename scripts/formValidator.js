@@ -1,11 +1,9 @@
-
-
 export class FormValidator {
     constructor(object, formSelector) {
-        this._form = document.querySelector(formSelector)
-        this._input = this._form.querySelector(object.inputSelector)
-        this._formButton = this._form.querySelector(object.submitButtonSelector)
-        this._objectInput = object.inputSelector
+        this._form = document.querySelector(formSelector);
+        this._input = this._form.querySelector(object.inputSelector);
+        this._formButton = this._form.querySelector(object.submitButtonSelector);
+        this._objectInput = object.inputSelector;
         // this._formSelector = formSelector;
     }
 
@@ -22,12 +20,14 @@ export class FormValidator {
     // }
 
     _checkInputValidity() {
-        const inputList = Array.from(this._form.querySelectorAll(this._objectInput));
+        const inputList = Array.from(
+            this._form.querySelectorAll(this._objectInput)
+        );
         const hasInvalid = () => {
             return inputList.some((inputElement) => {
                 return !inputElement.validity.valid;
-            })
-        }
+            });
+        };
 
         const toggle = () => {
             if (hasInvalid(inputList)) {
@@ -37,7 +37,7 @@ export class FormValidator {
                 this._formButton.classList.remove('popup-error__disabled-button');
                 this._formButton.removeAttribute('disabled', true);
             }
-        }
+        };
 
         inputList.forEach((inputElement) => {
             if (!inputElement.validity.valid) {
@@ -45,7 +45,6 @@ export class FormValidator {
                 inputElement.classList.add('popup-error__input-error');
                 formError.textContent = inputElement.validationMessage;
                 toggle();
-
             } else {
                 const formError = this._form.querySelector(`#${inputElement.id}-error`);
                 this._input.classList.remove('popup-error__input-error');
@@ -55,19 +54,18 @@ export class FormValidator {
         });
     }
 
-
-
-
     enableValidation() {
         this._form.addEventListener('submit', (evt) => {
             evt.preventDefault();
-        })
-        const inputList = Array.from(this._form.querySelectorAll(this._objectInput));
+        });
+        const inputList = Array.from(
+            this._form.querySelectorAll(this._objectInput)
+        );
         inputList.forEach((inputElement) => {
             inputElement.addEventListener('input', () => {
                 this._checkInputValidity();
             });
-        })
+        });
     }
 }
 
@@ -90,29 +88,29 @@ export class FormValidator {
 
 //         }
 
-//         setEventListener(form);    
+//         setEventListener(form);
 //     };
 
-    // const showInputError = (form, formInput, errorMassage) => {
-    //     const formError = form.querySelector(`#${formInput.id}-error`);
-    //     formInput.classList.add('popup-error__input-error');
-    //     formError.textContent = errorMassage;
+// const showInputError = (form, formInput, errorMassage) => {
+//     const formError = form.querySelector(`#${formInput.id}-error`);
+//     formInput.classList.add('popup-error__input-error');
+//     formError.textContent = errorMassage;
 
-    // };
+// };
 
-    // const hideInputError = (form, formInput) => {
-    //     const formError = form.querySelector(`#${formInput.id}-error`);
-    //     formInput.classList.remove('popup-error__input-error');
-    //     formError.textContent = '';
-    // };
+// const hideInputError = (form, formInput) => {
+//     const formError = form.querySelector(`#${formInput.id}-error`);
+//     formInput.classList.remove('popup-error__input-error');
+//     formError.textContent = '';
+// };
 
-    // const checkInputValidity = (form, formInput) => {
-    //     if (!formInput.validity.valid) {
-    //         showInputError(form, formInput, formInput.validationMessage);
-    //     } else {
-    //         hideInputError(form, formInput);
-    //     }
-    // };
+// const checkInputValidity = (form, formInput) => {
+//     if (!formInput.validity.valid) {
+//         showInputError(form, formInput, formInput.validationMessage);
+//     } else {
+//         hideInputError(form, formInput);
+//     }
+// };
 
 //     function hasInvalid(inputList) {
 //         return inputList.some(inputElement => {
@@ -129,13 +127,6 @@ export class FormValidator {
 //         }
 //     }
 
-
-
-
-
-
-
-
 // enableValidation({
 //     formSelector: '.add-popup__container',
 //     inputSelector: '.add-popup__input-filed',
@@ -144,4 +135,4 @@ export class FormValidator {
 //     inactiveButtonClass: 'popup-error__disabled-button',
 //     inputErrorClass: 'popup-error__input-error',
 //     errorClass: 'popup-error__text-input-error'
-// }); 
+// });

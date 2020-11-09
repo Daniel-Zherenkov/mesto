@@ -4,28 +4,34 @@ import { FormValidator } from './formValidator.js';
 const initialCards = [
     {
         name: 'Архыз',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+        link:
+            'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg',
     },
     {
         name: 'Челябинская область',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+        link:
+            'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg',
     },
     {
         name: 'Иваново',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+        link:
+            'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg',
     },
     {
         name: 'Камчатка',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+        link:
+            'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg',
     },
     {
         name: 'Холмогорский район',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+        link:
+            'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg',
     },
     {
         name: 'Байкал',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    }
+        link:
+            'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg',
+    },
 ];
 
 const editButton = document.querySelector('.profile__edit-button');
@@ -47,32 +53,28 @@ const elements = document.querySelector('.elements');
 export const imgPopup = document.querySelector('.img-popup');
 export const imgPopupImage = document.querySelector('.img-popup__image');
 export const imgPopupTitle = document.querySelector('.img-popup__title');
-export const imgPopupCloseButton = document.querySelector('.img-popup__close-button')
-const addPopupSaveButton = document.querySelector('#submit')
+export const imgPopupCloseButton = document.querySelector('.img-popup__close-button');
+const addPopupSaveButton = document.querySelector('#submit');
 
-
+export function closePopup(popup) {
+    popup.classList.remove('popup-opened');
+    
+}
+//Закрытие попапа по клавише Esc
+const closeEsc = (evt) => {
+    evt.preventDefault();
+    const activePopup = document.querySelector('.popup-opened');  
+    if (evt.key === 'Escape') {    
+        closePopup(activePopup);
+    }
+    document.removeEventListener('keydown', closeEsc);
+}
 
 export function openPopup(popup) {
     popup.classList.add('popup-opened');
-    document.addEventListener('keydown', function (evt) {
-        closeEsc(evt, popup);
-    });
-};
-
-//Закрытие попапа по клавише Esc
-export function closePopup(popup) {
-    popup.classList.remove('popup-opened');
-    document.removeEventListener('keydown', function (evt) {
-        closeEsc(evt, popup);
-    });
-
-};
-
-function closeEsc(evt, popup) {
-    if (evt.key === "Escape") {
-        closePopup(popup)
-    }
-};
+    document.addEventListener('keydown', closeEsc);
+    
+}
 
 //Закрытие попапа по клику на оверлей
 document.addEventListener('click', function (evt) {
@@ -85,7 +87,6 @@ function handleFormSubmit(evt) {
     profileName.textContent = profilePopupNameFiled.value;
     profileAbout.textContent = profilePopupAboutFiled.value;
     closePopup(profilePopup);
-
 }
 formElement.addEventListener('submit', handleFormSubmit);
 
@@ -97,24 +98,19 @@ editButton.addEventListener('click', function () {
 });
 
 profilePopupCloseButton.addEventListener('click', function () {
-    closePopup(profilePopup)
+    closePopup(profilePopup);
 });
-
-
 
 //Создание новых карточек из массива
-initialCards.forEach(item => {
+initialCards.forEach((item) => {
     const card = new Card(item, '#elementCards');
     elements.append(card.generateCard());
-
 });
-
-
 
 //Создание новых карточек из формы добавления карточек
 function handleNewPlaceForm(evt) {
     evt.preventDefault();
-    const item = {}
+    const item = {};
     item.name = placeName.value;
     item.link = link.value;
     const card = new Card(item, '#elementCards');
@@ -139,13 +135,6 @@ function addInactiveButton(button) {
     button.setAttribute('disabled', true);
 }
 
-
-
-
-
-
-
-
 const popupAddContainer = {
     formSelector: '.add-popup__container',
     inputSelector: '.add-popup__input-filed',
@@ -153,9 +142,12 @@ const popupAddContainer = {
     submitButtonSelector: '.add-popup__save-button',
     inactiveButtonClass: 'popup-error__disabled-button',
     inputErrorClass: 'popup-error__input-error',
-    errorClass: 'popup-error__text-input-error'
-}
-const popupAddValidator = new FormValidator(popupAddContainer, '.add-popup__container')
+    errorClass: 'popup-error__text-input-error',
+};
+const popupAddValidator = new FormValidator(
+    popupAddContainer,
+    '.add-popup__container'
+);
 popupAddValidator.enableValidation();
 
 const popupProfileContainer = {
@@ -165,8 +157,11 @@ const popupProfileContainer = {
     submitButtonSelector: '.profile-popup__save-button',
     inactiveButtonClass: 'popup-error__disabled-button',
     inputErrorClass: 'popup-error__input-error',
-    errorClass: 'popup-error__text-input-error'
-}
-const popupProfileValidator = new FormValidator(popupProfileContainer, '.profile-popup__container')
+    errorClass: 'popup-error__text-input-error',
+};
+const popupProfileValidator = new FormValidator(
+    popupProfileContainer,
+    '.profile-popup__container'
+);
 popupProfileValidator.enableValidation();
 
