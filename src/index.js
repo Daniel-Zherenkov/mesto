@@ -85,7 +85,7 @@ editButton.addEventListener('click', addProfileInfo)
 
 
 
-
+//комментарий ради окмментария
 
 //Создание новых карточек из массива
 const renderDefaultCards = new Section({
