@@ -62,10 +62,16 @@ export class FormValidator {
             this._form.querySelectorAll(this._objectInput)
         );
         inputList.forEach((inputElement) => {
+            if (inputElement.name === 'placeName') {
+                this._formButton.classList.add('popup-error__disabled-button');
+                this._formButton.setAttribute('disabled', true);
+            }
             inputElement.addEventListener('input', () => {
                 this._checkInputValidity();
             });
         });
+        
+        
     }
 }
 

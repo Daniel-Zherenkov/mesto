@@ -5,13 +5,14 @@ import {
     imgPopupImage,
     imgPopupTitle,
     imgPopupCloseButton,
-} from './index.js';
+} from '../index.js';
 
 export class Card {
-    constructor(object, cardSelector) {
+    constructor(object, cardSelector, handleCardClick) {
         this._cardSelector = cardSelector;
         this._name = object.name;
         this._link = object.link;
+        this._handleCardClick = handleCardClick;
     }
 
     _getTemplate() {
@@ -34,15 +35,15 @@ export class Card {
             .classList.toggle('element__like_fill');
     }
 
-    _handleOpenImgPopup() {
-        openPopup(imgPopup);
-        imgPopupImage.src = this._link;
-        imgPopupTitle.textContent = this._name;
-    }
+    // _handleOpenImgPopup() {
+    //     openPopup(imgPopup);
+    //     imgPopupImage.src = this._link;
+    //     imgPopupTitle.textContent = this._name;
+    // }
 
-    _handleCloseImgPopup() {
-        closePopup(imgPopup);
-    }
+    // _handleCloseImgPopup() {
+    //     closePopup(imgPopup);
+    // }
 
     _setEventListener() {
         this._element
@@ -60,7 +61,7 @@ export class Card {
         this._element
             .querySelector('.element__image')
             .addEventListener('click', () => {
-                this._handleOpenImgPopup();
+                this._handleCardClick();
             });
 
         imgPopupCloseButton.addEventListener('click', () => {
