@@ -64,9 +64,6 @@ export class Card {
                 this._handleCardClick();
             });
 
-        imgPopupCloseButton.addEventListener('click', () => {
-            this._handleCloseImgPopup();
-        });
     }
 
     generateCard() {
