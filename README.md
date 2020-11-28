@@ -1,6 +1,6 @@
 # Проект 4: Социальная сеть "Место"
 
-## Ссылка на проект: https://daniel-zherenkov.github.io/mesto/dist/index.html
+## Ссылка на проект: https://daniel-zherenkov.github.io/mesto/index.html
 
 ### Социальная сеть для любителей путешествовать
 Проект полностью адаптивный. 
