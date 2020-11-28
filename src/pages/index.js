@@ -1,11 +1,11 @@
-import './pages/index.css'
-import { Card } from './components/card.js';
-import { FormValidator } from './components/formValidator.js';
-import Section from './components/Section.js';
-import Popup from './components/Popup.js';
-import PopupWithImage from './components/PopupWithImage.js';
-import PopupWithForm from './components/PopupWithForm.js';
-import UserInfo from './components/UserInfo';
+import './index.css'
+import { Card } from '../components/card.js';
+import { FormValidator } from '../components/formValidator.js';
+import Section from '../components/Section.js';
+import Popup from '../components/Popup.js';
+import PopupWithImage from '../components/PopupWithImage.js';
+import PopupWithForm from '../components/PopupWithForm.js';
+import UserInfo from '../components/UserInfo';
 
 const initialCards = [
     {
@@ -67,9 +67,11 @@ const addPopupSaveButton = document.querySelector('#submit');
 
 
 
+
 //получаем данные из полей
 const handleUserInfo = new UserInfo({ profileNameSelector: '.profile__name', profileAboutSelector: '.profile__about-self' })
 
+//экземпляр класса с формой для попапа редкатирования профиля
 const handleProfilePopup = new PopupWithForm('.profile-popup', ({ profileName, profileAbout }) => {
     handleUserInfo.setUserInfo({ profileName, profileAbout })
 });
@@ -80,12 +82,13 @@ const addProfileInfo = () => {
     profilePopupNameFiled.value = cardInfo.name;
     profilePopupAboutFiled.value = cardInfo.about;
     handleProfilePopup.open();
+    popupProfileValidator.enableValidation(); //валидация формы
 }
 editButton.addEventListener('click', addProfileInfo)
+handleProfilePopup.setEventListeners() 
 
 
 
-//комментарий ради окмментария
 
 //Создание новых карточек из массива
 const renderDefaultCards = new Section({
@@ -103,10 +106,15 @@ const renderDefaultCards = new Section({
 
 renderDefaultCards.renderItems();
 
+//попап с картинкой и подписью
 const popupImg = new PopupWithImage('.img-popup')
+popupImg.setEventListeners()
+
+//попап с формой добавления карточки
 const handleCardPopup = new PopupWithForm('.add-popup', ({ placeName, link }) => {
     addNewCard({ name: placeName, link: link })
 });
+handleCardPopup.setEventListeners()
 
 //Создание новых карточек из формы добавления карточек
 const addNewCard = (data) => {
@@ -120,17 +128,12 @@ const addNewCard = (data) => {
 
 addButton.addEventListener('click', () => {
     handleCardPopup.open()
+    popupAddValidator.enableValidation(); // валидация формы
 });
 
 
 
 
-
-
-function addInactiveButton(button) {
-    button.classList.add('popup-error__disabled-button');
-    button.setAttribute('disabled', true);
-}
 
 const popupAddContainer = {
     formSelector: '.add-popup__container',
@@ -142,7 +145,7 @@ const popupAddContainer = {
     errorClass: 'popup-error__text-input-error',
 };
 const popupAddValidator = new FormValidator(popupAddContainer, '.add-popup__container');
-popupAddValidator.enableValidation();
+
 
 const popupProfileContainer = {
     formSelector: '.profile-popup__container',
@@ -154,5 +157,5 @@ const popupProfileContainer = {
     errorClass: 'popup-error__text-input-error',
 };
 const popupProfileValidator = new FormValidator(popupProfileContainer, '.profile-popup__container');
-popupProfileValidator.enableValidation();
+
 

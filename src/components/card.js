@@ -1,11 +1,3 @@
-import {
-    openPopup,
-    closePopup,
-    imgPopup,
-    imgPopupImage,
-    imgPopupTitle,
-    imgPopupCloseButton,
-} from '../index.js';
 
 export class Card {
     constructor(object, cardSelector, handleCardClick) {
@@ -35,15 +27,7 @@ export class Card {
             .classList.toggle('element__like_fill');
     }
 
-    // _handleOpenImgPopup() {
-    //     openPopup(imgPopup);
-    //     imgPopupImage.src = this._link;
-    //     imgPopupTitle.textContent = this._name;
-    // }
 
-    // _handleCloseImgPopup() {
-    //     closePopup(imgPopup);
-    // }
 
     _setEventListener() {
         this._element
@@ -71,6 +55,7 @@ export class Card {
         this._setEventListener();
         this._element.querySelector('.element__image').src = this._link;
         this._element.querySelector('.element__title').textContent = this._name;
+        this._element.querySelector('.element__image').alt = this._name;
         return this._element;
     }
 }
