@@ -2,7 +2,6 @@ import './index.css'
 import { Card } from '../components/card.js';
 import { FormValidator } from '../components/formValidator.js';
 import Section from '../components/Section.js';
-import Popup from '../components/Popup.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo';
@@ -41,32 +40,13 @@ const initialCards = [
 ];
 
 const editButton = document.querySelector('.profile__edit-button');
-const profilePopup = document.querySelector('.profile-popup');
-const profilePopupCloseButton = document.querySelector('.profile-popup__close-button');
 const profilePopupNameFiled = document.querySelector('.profile-popup__input-filed_name');
 const profilePopupAboutFiled = document.querySelector('.profile-popup__input-filed_about');
-const profileName = document.querySelector('.profile__name');
-const profileAbout = document.querySelector('.profile__about-self');
-const formElement = document.querySelector('.profile-popup__container');
 const addButton = document.querySelector('.profile__add-button');
-const addPopup = document.querySelector('.add-popup');
-const addPopupCloseButton = document.querySelector('.add-popup__close-button');
-const addFormElement = document.querySelector('.add-popup__container');
-const placeName = document.querySelector('.add-popup__input-filed_place');
-const link = document.querySelector('.add-popup__input-filed_link');
-const elementTemplate = document.querySelector('#elementCards').content;
-const elements = document.querySelector('.elements');
 export const imgPopup = document.querySelector('.img-popup');
 export const imgPopupImage = document.querySelector('.img-popup__image');
 export const imgPopupTitle = document.querySelector('.img-popup__title');
 export const imgPopupCloseButton = document.querySelector('.img-popup__close-button');
-const addPopupSaveButton = document.querySelector('#submit');
-
-
-
-
-
-
 
 //получаем данные из полей
 const handleUserInfo = new UserInfo({ profileNameSelector: '.profile__name', profileAboutSelector: '.profile__about-self' })
@@ -82,10 +62,9 @@ const addProfileInfo = () => {
     profilePopupNameFiled.value = cardInfo.name;
     profilePopupAboutFiled.value = cardInfo.about;
     handleProfilePopup.open();
-    popupProfileValidator.enableValidation(); //валидация формы
 }
 editButton.addEventListener('click', addProfileInfo)
-handleProfilePopup.setEventListeners() 
+handleProfilePopup.setEventListeners()
 
 
 
@@ -128,7 +107,6 @@ const addNewCard = (data) => {
 
 addButton.addEventListener('click', () => {
     handleCardPopup.open()
-    popupAddValidator.enableValidation(); // валидация формы
 });
 
 
@@ -145,6 +123,7 @@ const popupAddContainer = {
     errorClass: 'popup-error__text-input-error',
 };
 const popupAddValidator = new FormValidator(popupAddContainer, '.add-popup__container');
+popupAddValidator.enableValidation(); // валидация формы
 
 
 const popupProfileContainer = {
@@ -157,5 +136,6 @@ const popupProfileContainer = {
     errorClass: 'popup-error__text-input-error',
 };
 const popupProfileValidator = new FormValidator(popupProfileContainer, '.profile-popup__container');
+popupProfileValidator.enableValidation(); //валидация формы
 
 
