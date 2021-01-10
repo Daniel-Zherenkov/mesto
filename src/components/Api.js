@@ -21,118 +21,62 @@ export default class Api {
         this._body = options.body
     }
 
-
+    _getResponseData(res) {
+        if (res.ok) {
+            return res.json()
+        }
+        return Promise.reject(`Ошибка: ${res.status}`)
+        
+    } 
 
     getProfile() {
-        this._avatar = document.querySelector('.profile__avatar')
-        this._profileName = document.querySelector('.profile__name')
-        this._about = document.querySelector('.profile__about-self')
         return fetch(this._url + '/users/me', {
             headers: this._token
-        }).then(res => {
-            if (res.ok) {
-                return res.json()
-            }
-            return Promise.reject(`Ошибка: ${res.status}`)
-            
-        }).then( data => {
-            this._avatar.src = data.avatar
-            this._profileName.textContent = data.name
-            this._about.textContent = data.about
-        }).catch(err => {console.log(err)});
+        }).then(res => this._getResponseData(res))
     }
 
     getCards() {
         return fetch(this._url + '/cards', {
             headers: this._token
-        }).then(res => {
-            if (res.ok) {
-                return res.json()
-            }
-            return Promise.reject(`Ошибка: ${res.status}`)
-            
-        })
+        }).then(res => this._getResponseData(res))
     }
 
-    changeProfile() {
+    changeProfile(params) {
         return fetch(this._url + '/users/me', {
-            method: this._method,
+            method: params.method,
             headers: this._token,
-            body: this._body
-        }).then(res => {
-            if (res.ok) {
-                return res.json()
-            }
-            return Promise.reject(`Ошибка: ${res.status}`)
-            
-        })
+            body: params.body
+        }).then(res => this._getResponseData(res))
     }
 
-    changeAvatar() {
+    changeAvatar(params) {
         return fetch(this._url + '/users/me/avatar', {
-            method: this._method,
+            method: params.method,
             headers: this._token,
-            body: this._body
-        }).then(res => {
-            if (res.ok) {
-                return res.json()
-            }
-            return Promise.reject(`Ошибка: ${res.status}`)
-            
-        })
-        
+            body: params.body
+        }).then(res => this._getResponseData(res))
     }
 
-    addCard() {
+    addCard(params) {
         return fetch(this._url + '/cards', {
-            method: this._method,
+            method: params.method,
             headers: this._token,
-            body: this._body
-        }).then(res => {
-            if (res.ok) {
-                return res.json()
-            }
-            return Promise.reject(`Ошибка: ${res.status}`)
-        })
+            body: params.body
+        }).then(res => this._getResponseData(res))
     }
 
-    deleteCard(id_card) {
+    deleteCard(params, id_card) {
         return fetch(this._url +`/cards/${id_card}`, {
-            method: this._method,
+            method: params.method,
             headers: this._token
-        }).then(res => {
-            if (res.ok) {
-                return res.json()
-            }
-            return Promise.reject(`Ошибка: ${res.status}`)
-        })
+        }).then(res => this._getResponseData(res))
     }
 
-    toggleLike(id_card) {
+    toggleLike(params, id_card) {
         return fetch(this._url +`/cards/likes/${id_card}`, {
-            method: this._method,
+            method: params.method,
             headers: this._token
-        }).then(res => {
-            if (res.ok) {
-                return res.json()
-            }
-            return Promise.reject(`Ошибка: ${res.status}`)
-        })
-    }
-
-    updateAvatar() {
-        {
-            return fetch(this._url +'users/me/avatar', {
-                method: this._method,
-                headers: this._token,
-                body: this._body
-            }).then(res => {
-                if (res.ok) {
-                    return res.json()
-                }
-                return Promise.reject(`Ошибка: ${res.status}`)
-            })
-        }
+        }).then(res => this._getResponseData(res))
     }
 
 

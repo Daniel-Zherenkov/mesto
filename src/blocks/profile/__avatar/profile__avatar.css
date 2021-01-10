@@ -9,6 +9,7 @@
 
 .profile__avatar:hover {
     opacity: .6;
-    cursor: pointer
+    cursor: pointer;
+    z-index: 0;
     
 }
