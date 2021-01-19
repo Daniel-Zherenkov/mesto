@@ -17,7 +17,7 @@
         <main>
             <section class="profile">
                 <div class="profile__left">
-                    <img class="profile__avatar" src="" alt="аватар">
+                    <img class="profile__avatar" alt="аватар">
                     <button class="profile__edit-avatar"></button>
                     <div class="profile__info">
                         <div class="profile__name-edit-flex">
@@ -47,7 +47,7 @@
     </div>
 
     <div class="profile-popup">
-        <form novalidate id="form" name="popupContainer" class="profile-popup__container">
+        <form novalidate name="popupContainer" class="profile-popup__container main-form">
             <button type="button" class="popup-close popup-close-button profile-popup__close-button">
                 <img src="<%=require('./images/addButton.svg')%>" alt="закрыть" class="profile-popup__close-button-img">
             </button>
@@ -62,7 +62,7 @@
     </div>
 
     <div class="add-popup">
-        <form novalidate id="form" name="add-popupContainer" class="add-popup__container">
+        <form novalidate name="add-popupContainer" class="add-popup__container main-form">
             <button type="button" class="popup-close popup-close-button add-popup__close-button">
                 <img src="<%=require('./images/addButton.svg')%>" alt="закрыть" class="add-popup__close-button-img">
             </button>
@@ -76,7 +76,7 @@
     </div>
 
     <div class="approve-popup add-popup">
-        <form id="form" class="add-popup__container">
+        <form class="add-popup__container main-form">
             <button type="button" class="popup-close-button add-popup__close-button">
                 <img src="<%=require('./images/addButton.svg')%>" alt="закрыть" class="popup-close add-popup__close-button-img">
             </button>
@@ -86,7 +86,7 @@
     </div>
 
     <div class="avatar-edit-popup add-popup">
-        <form id="form" class="add-popup__container">
+        <form class="add-popup__container main-form">
             <button type="button" class="popup-close-button add-popup__close-button">
                 <img src="<%=require('./images/addButton.svg')%>" alt="закрыть" class="popup-close add-popup__close-button-img">
             </button>
