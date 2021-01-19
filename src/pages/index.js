@@ -92,7 +92,6 @@ const changeAvatar = new PopupWithForm('.avatar-edit-popup', ({ avatar }) => {
     renderLoading('.add-popup__save-button', true, 'Сохранить')
     mainApi.changeAvatar({ avatar })
     .then(data => {
-        console.log(data)
         data.avatar = avatarDOM.src
         avatarDOM.src = avatarNputFiild.value
         changeAvatar.close()
@@ -146,7 +145,7 @@ const buildCard = (item, bool) => {
         (currentCard) => {
             if (currentCard.isLiked()) {
                 mainApi.deleteLike(item._id).then(res => {
-                    console.log(res)
+                    
                     //метод setLikes присваивает цифре под лайком значение длины массива лайков и убирает закрашивание сердечка
                     currentCard.setLikes(res)
                 }).catch(err => { console.log(err) })
@@ -154,7 +153,7 @@ const buildCard = (item, bool) => {
                 mainApi.addLike(item._id).then(res => {
                     currentCard.setLikes(res)
                 }).catch(err => { console.log(err) })
-                console.log(item.likes)
+                // console.log(item.likes)
             }
         },
         () => {
