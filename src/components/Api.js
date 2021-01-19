@@ -41,40 +41,55 @@ export default class Api {
         }).then(res => this._getResponseData(res))
     }
 
-    changeProfile(params) {
+    changeProfile({ profileName, profileAbout }) {
         return fetch(this._url + '/users/me', {
-            method: params.method,
+            method: 'PATCH',
             headers: this._token,
-            body: params.body
+            body: JSON.stringify({
+                name: profileName,
+                about: profileAbout
+            })
         }).then(res => this._getResponseData(res))
     }
 
-    changeAvatar(params) {
+    changeAvatar({ avatar }) {
         return fetch(this._url + '/users/me/avatar', {
-            method: params.method,
+            method: 'PATCH',
             headers: this._token,
-            body: params.body
+            body: JSON.stringify({
+                avatar: avatar
+            })
         }).then(res => this._getResponseData(res))
     }
 
-    addCard(params) {
+    addCard({placeName, link}) {
         return fetch(this._url + '/cards', {
-            method: params.method,
+            method: 'POST',
             headers: this._token,
-            body: params.body
+            body: JSON.stringify({
+                name: placeName,
+                link: link
+            })
         }).then(res => this._getResponseData(res))
     }
 
-    deleteCard(params, id_card) {
+    deleteCard(id_card) {
         return fetch(this._url +`/cards/${id_card}`, {
-            method: params.method,
+            method: 'DELETE',
             headers: this._token
         }).then(res => this._getResponseData(res))
     }
 
-    toggleLike(params, id_card) {
+    addLike(id_card) {
         return fetch(this._url +`/cards/likes/${id_card}`, {
-            method: params.method,
+            method: 'PUT',
+            headers: this._token
+        }).then(res => this._getResponseData(res))
+    }
+
+    deleteLike(id_card) {
+        return fetch(this._url +`/cards/likes/${id_card}`, {
+            method: 'DELETE',
             headers: this._token
         }).then(res => this._getResponseData(res))
     }

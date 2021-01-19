@@ -54,14 +54,13 @@ const profilePopupNameFiled = document.querySelector('.profile-popup__input-file
 const profilePopupAboutFiled = document.querySelector('.profile-popup__input-filed_about');
 const addButton = document.querySelector('.profile__add-button');
 const avatarDOM = document.querySelector('.profile__avatar');
+const avatarEditButton = document.querySelector('.profile__edit-avatar');
 export const imgPopup = document.querySelector('.img-popup');
 export const imgPopupImage = document.querySelector('.img-popup__image');
 export const imgPopupTitle = document.querySelector('.img-popup__title');
 export const imgPopupCloseButton = document.querySelector('.img-popup__close-button');
 const avatarNputFiild = document.querySelector('.avatar-edit-popup__input')
-const avatar = document.querySelector('.profile__avatar')
-const profileName = document.querySelector('.profile__name')
-const about = document.querySelector('.profile__about-self')
+const addCardSaveButton = document.querySelector('.add-popup__save-button')
 const meID = {}
 
 //Основной экземпляр класса с Апишками
@@ -73,41 +72,35 @@ const mainApi = new Api({
     }
 });
 
-
-
-//получаем данные для прфоиля и рендера карточек при загрузке страницы
-const getProfile = () => {
-    mainApi.getProfile().then(data => {
-        avatar.src = data.avatar
-        profileName.textContent = data.name
-        about.textContent = data.about
-        meID.id = data._id
-    }).catch(err => { console.log(err) });
-}
-getProfile()
-
-
-mainApi.getCards().then(data => {
-    renderDefaultCards.renderItems(data)
+Promise.all([
+    mainApi.getProfile(),
+    mainApi.getCards()
+]).then( values => {
+    const [userData, cardData] = values
+    //получаем данные для профиля при загрузке страницы
+    handleUserInfo.setUserInfo(userData)
+    handleUserInfo.setUserAvatar('.profile__avatar', userData)
+    meID.id = userData._id
+    // для рендера карточек при загрузке страницы
+    renderDefaultCards.renderItems(cardData)
 }).catch(err => { console.log(err) });
+
 
 
 //меняем аватарку
 const changeAvatar = new PopupWithForm('.avatar-edit-popup', ({ avatar }) => {
     renderLoading('.add-popup__save-button', true, 'Сохранить')
-    mainApi.changeAvatar({
-        method: 'PATCH', body: JSON.stringify({
-            avatar: avatar
-        })
-    }).then(data => {
+    mainApi.changeAvatar({ avatar })
+    .then(data => {
         console.log(data)
         data.avatar = avatarDOM.src
         avatarDOM.src = avatarNputFiild.value
+        changeAvatar.close()
     }).catch(err => { console.log(err) }).finally(() => renderLoading('.add-popup__save-button', false, 'Сохранить'))
-
 })
-changeAvatar.setEventListenersAvatar()
-avatarDOM.addEventListener('click', () => {
+
+changeAvatar.setEventListeners()
+avatarEditButton.addEventListener('click', () => {
     renderLoading('.add-popup__save-button', false, 'Сохранить')
     changeAvatar.open()
 })
@@ -126,12 +119,10 @@ const handleUserInfo = new UserInfo({ profileNameSelector: '.profile__name', pro
 //экземпляр класса с формой для попапа редкатирования профиля
 const handleProfilePopup = new PopupWithForm('.profile-popup', ({ profileName, profileAbout }) => {
     renderLoading('.profile-popup__save-button', true, 'Сохранить')
-    mainApi.changeProfile({
-        method: 'PATCH', body: JSON.stringify({
-            name: profileName,
-            about: profileAbout
-        })
-    }).then(data => handleUserInfo.setUserInfo(data)).catch(err => { console.log(err) }).finally(() => renderLoading('.profile-popup__save-button', false, 'Сохранить'))
+    mainApi.changeProfile({ profileName, profileAbout })
+    .then(data => handleUserInfo.setUserInfo(data))
+    .catch(err => { console.log(err) })
+    .finally(() => renderLoading('.profile-popup__save-button', false, 'Сохранить'))
 });
 
 //открытие попапа редактирвоания профиля и заполнение 
@@ -146,39 +137,42 @@ editButton.addEventListener('click', addProfileInfo)
 handleProfilePopup.setEventListeners()
 
 
-const buildCard = (item) => {
-    const card = new Card(item, '#elementCards', () => {
+const buildCard = (item, bool) => {
+    const card = new Card(item, '#elementCards', meID, () => {
         const name = item.name
         const link = item.link
         popupImg.open(name, link)
     },
         (currentCard) => {
             if (currentCard.isLiked()) {
-                mainApi.toggleLike({ method: 'DELETE' }, item._id).then(res => {
+                mainApi.deleteLike(item._id).then(res => {
+                    console.log(res)
                     //метод setLikes присваивает цифре под лайком значение длины массива лайков и убирает закрашивание сердечка
                     currentCard.setLikes(res)
                 }).catch(err => { console.log(err) })
             } else {
-                mainApi.toggleLike({ method: 'PUT' }, item._id).then(res => {
+                mainApi.addLike(item._id).then(res => {
                     currentCard.setLikes(res)
-                    item.likes = card._likes
                 }).catch(err => { console.log(err) })
                 console.log(item.likes)
             }
         },
         () => {
             const approvePopup = new PopupWithApprove('.approve-popup', () => {
-                mainApi.deleteCard({ method: 'DELETE' }, item._id).catch(err => { console.log(err) })
-                card.trashCard.remove()
+                mainApi.deleteCard(item._id).then(res => card.deleteCard() ).catch(err => { console.log(err) })
             })
             approvePopup.setEventListeners()
             approvePopup.open()
         }
     )
     const cardElement = card.generateCard(item.owner._id, meID.id)
-    renderDefaultCards.addItem(cardElement)
-    card.likesCounter.textContent = item.likes.length
-
+    if (bool) {
+        renderDefaultCards.addItem(cardElement)
+    } else {
+        renderDefaultCards.addItemFromPopup(cardElement) 
+    }
+    
+    //проверяем ставил ли текущий пользователь лайк, если да - заливаем цветом сердечко
     if (item.likes.some(element => element._id === meID.id)) {
         cardElement.querySelector('.element__like_icon')
             .classList.add('element__like_fill')
@@ -188,7 +182,7 @@ const buildCard = (item) => {
 //Создание новых карточек из массива с сервера
 const renderDefaultCards = new Section({
     renderer: (item) => {
-        buildCard(item)
+        buildCard(item, true)
     }
 }, '.elements')
 
@@ -203,13 +197,13 @@ popupImg.setEventListeners()
 //Создание новых карточек из формы добавления карточек
 const handleCardPopup = new PopupWithForm('.add-popup', ({ placeName, link }) => {
     renderLoading('.add-popup__save-button', true, 'Создать')
-    mainApi.addCard({
-        method: 'POST', body: JSON.stringify({
-            name: placeName,
-            link: link
-        })
-    }).then(data => {
-        buildCard(data)
+    mainApi.addCard({ placeName, link })
+    .then(data => {
+        buildCard(data, false)
+        handleCardPopup.reset()
+        popupAddValidator.enableValidation()
+        // addCardSaveButton.classList.add('popup-error__disabled-button')
+        // addCardSaveButton.setAttribute('disabled', true)
     }).catch(err => { console.log(err) }).finally(() => renderLoading('.profile-popup__save-button', false));
 
 });
@@ -220,10 +214,8 @@ handleCardPopup.setEventListeners()
 addButton.addEventListener('click', () => {
     renderLoading('.add-popup__save-button', false, 'Создать')
     handleCardPopup.open()
+
 });
-
-
-
 
 
 const popupAddContainer = {

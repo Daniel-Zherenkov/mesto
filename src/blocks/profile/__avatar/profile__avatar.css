@@ -3,13 +3,13 @@
     width: 120px;
     border-radius: 50%;
     object-fit: cover;
-    z-index: 2;
+    /* z-index: 2; */
     
 }
 
-.profile__avatar:hover {
+/* .profile__avatar:hover {
     opacity: .6;
     cursor: pointer;
     z-index: 0;
     
-}
+} */

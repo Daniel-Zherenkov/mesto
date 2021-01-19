@@ -16,5 +16,10 @@ export default class UserInfo {
         this._name.textContent = object.name
         this._about.textContent = object.about
     }
+
+    setUserAvatar(avatarSelector, object) {
+        this._avatar = document.querySelector(avatarSelector)
+        this._avatar.src = object.avatar
+    }
 }
 

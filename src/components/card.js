@@ -1,5 +1,5 @@
 export class Card {
-    constructor(object, cardSelector, handleCardClick, handleLikeCounter, handleDeleteCard) {
+    constructor(object, cardSelector, meID, handleCardClick, handleLikeCounter, handleDeleteCard) {
         this._cardSelector = cardSelector;
         this._name = object.name;
         this._link = object.link;
@@ -11,6 +11,7 @@ export class Card {
         this.trashCard = this.trash.closest('.element')
         this._handleDeleteCard = handleDeleteCard
         this._likes = object.likes
+        this._meID = meID.id
         
     }
 
@@ -29,7 +30,7 @@ export class Card {
     }
 
     isLiked() {
-        return this._likes.some(element => element._id === 'c4b57be845e0c2e7582e746a')
+        return this._likes.some(element => element._id === this._meID)
     }
 
     setLikes(res) {
@@ -50,6 +51,12 @@ export class Card {
             .classList.add('element__like_fill');
         }
     }
+
+    deleteCard(){
+        this.trashCard.remove()
+    }
+
+   
 
     // addLike(res) {
     //     // console.log(res.likes)
@@ -102,6 +109,7 @@ export class Card {
         if (id !== meID) {
             this._element.querySelector('.element__trash').remove()
         }
+        this.likesCounter.textContent = this._likes.length
         return this._element;
     }
 
