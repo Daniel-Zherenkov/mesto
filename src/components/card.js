@@ -56,7 +56,6 @@ export class Card {
         this.trashCard.remove()
     }
 
-   
 
     // addLike(res) {
     //     // console.log(res.likes)
